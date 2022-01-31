@@ -13,7 +13,7 @@
 // @grant        GM_getValue
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
     // Watch for changes on release list
@@ -47,7 +47,7 @@
     // Fetch URL from cache
     function getCache(name) {
         var cache = GM_getValue(name, undefined)
-        if(cache && ((Date.now() - cache[1]) < CACHE_VALID_TIME)) {
+        if (cache && ((Date.now() - cache[1]) < CACHE_VALID_TIME)) {
             return cache[0];
         } else {
             return undefined;
@@ -61,20 +61,20 @@
             method: "GET",
             responseType: "json",
             url: "https://myanimelist.net/search/prefix.json?type=anime&keyword=" + encodeURIComponent(name),
-            onload: function(res) {
+            onload: function (res) {
                 var items = res.response.categories[0].items;
                 var item;
                 // find first "Currently Airing" status
-                for(item in items) {
-                    if(items[item].payload.status == "Currently Airing") {
+                for (item in items) {
+                    if (items[item].payload.status == "Currently Airing") {
                         setCache(name, items[item].url);
                         callback(items[item].url);
                         return;
                     }
                 }
                 // nothing airing, return first TV listing
-                for(item in items) {
-                    if(items[item].payload.media_type == "TV") {
+                for (item in items) {
+                    if (items[item].payload.media_type == "TV") {
                         setCache(name, items[item].url);
                         callback(items[item].url);
                         return;
@@ -90,8 +90,8 @@
     // Add MAL badge next to release resolutions
     function addBadges() {
         // var time = Date.now()
-        document.querySelectorAll('#releases-table .badge-wrapper').forEach(function(item) {
-            if(item.textContent.search("MAL") == -1) {
+        document.querySelectorAll('#releases-table .badge-wrapper').forEach(function (item) {
+            if (item.textContent.search("MAL") == -1) {
                 var name = item.parentElement.querySelector('a').textContent.split(' - ')[0];
                 var a = document.createElement("a");
                 var s = document.createElement("span");
@@ -101,13 +101,13 @@
                 item.appendChild(a);
 
                 var cachedURL = getCache(name);
-                if(cachedURL) {
+                if (cachedURL) {
                     console.log("Cache hit for:", name);
                     a.href = cachedURL;
                     // console.log(Date.now() - time);
                 } else {
                     console.log("Cache miss for:", name);
-                    fetchLink(name, function(url) {
+                    fetchLink(name, function (url) {
                         a.href = url;
                         // console.log(Date.now() - time);
                     });

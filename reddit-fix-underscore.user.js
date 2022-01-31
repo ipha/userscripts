@@ -11,10 +11,10 @@
 // @run-at       document-idle
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
-    function fixLinks () {
+    function fixLinks() {
         //var start = Date.now();
         document.querySelectorAll('a[href*="%5C_"').forEach((element) => {
             console.log("Fixing: " + element.href);
@@ -25,7 +25,7 @@
         //console.log("Fix took: " + (end - start) + "ms");
     }
 
-    function mutationCallback (mutations) {
+    function mutationCallback(mutations) {
         fixLinks();
     }
 

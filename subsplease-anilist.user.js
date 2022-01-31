@@ -13,7 +13,7 @@
 // @grant        GM_getValue
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
     // anilist graphql stuff
@@ -55,7 +55,7 @@
     // Fetch URL from cache
     function getCache(name) {
         var cache = GM_getValue(name, undefined)
-        if(cache && ((Date.now() - cache[1]) < CACHE_VALID_TIME)) {
+        if (cache && ((Date.now() - cache[1]) < CACHE_VALID_TIME)) {
             return cache[0];
         } else {
             return undefined;
@@ -73,8 +73,8 @@
             },
             responseType: "json",
             url: "https://graphql.anilist.co",
-            data: JSON.stringify({query: query, variables: { search: name }}),
-            onload: function(res) {
+            data: JSON.stringify({ query: query, variables: { search: name } }),
+            onload: function (res) {
                 // todo: error handling
                 var url = res.response.data.Media.siteUrl
                 setCache(name, url);
@@ -86,8 +86,8 @@
     // Add MAL badge next to release resolutions
     function addBadges() {
         // var time = Date.now()
-        document.querySelectorAll('#releases-table .badge-wrapper').forEach(function(item) {
-            if(item.textContent.search("AniList") == -1) {
+        document.querySelectorAll('#releases-table .badge-wrapper').forEach(function (item) {
+            if (item.textContent.search("AniList") == -1) {
                 var name = item.parentElement.querySelector('a').textContent.split(' - ')[0];
                 var a = document.createElement("a");
                 var s = document.createElement("span");
@@ -95,15 +95,15 @@
                 s.append("AniList");
                 s.classList.add("badge");
                 item.appendChild(a);
-        
+
                 var cachedURL = getCache(name);
-                if(cachedURL) {
+                if (cachedURL) {
                     console.log("Cache hit for:", name);
                     a.href = cachedURL;
                     // console.log(Date.now() - time);
                 } else {
                     console.log("Cache miss for:", name);
-                    fetchLink(name, function(url) {
+                    fetchLink(name, function (url) {
                         a.href = url;
                         // console.log(Date.now() - time);
                     });
