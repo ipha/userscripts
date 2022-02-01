@@ -2,7 +2,7 @@
 // @name         Fix Reddit Links
 // @namespace    https://github.com/ipha/userscripts
 // @version      1.0
-// @description  Fix improper escaping(\_) of userscores in reddit
+// @description  Fix improper escaping(\_) of underscores in reddit
 // @author       ipha
 // @license      MIT
 // @include      https://*.reddit.com/*/comments/*
