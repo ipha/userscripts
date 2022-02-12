@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         Redirect Twitter
 // @namespace    https://github.com/ipha/userscripts
-// @version      1.0
+// @version      1.1
 // @description  Redirect twitter to nitter
 // @author       ipha
 // @license      MIT
-// @match        https://twitter.com/
+// @match        https://twitter.com/*
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
